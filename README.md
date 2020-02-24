@@ -5,7 +5,7 @@
 [![Github All Releases](https://img.shields.io/github/downloads/Proteus1989/Air-Explorer-Decrypter/total)](https://github.com/Proteus1989/Air-Explorer-Decrypter/releases)
 
 # Air Explorer Decrypter
-Java API able to decrypts Air Explorer encrypted files
+Java API able to decrypts Air Explorer encrypted files. This project includes simple graphic client binaries.
 
 
 ## Getting Started
