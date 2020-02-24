@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/Proteus1989/Air-Explorer-Decrypter.svg?branch=master)](https://travis-ci.com/Proteus1989/Air-Explorer-Decrypter)
+[![Build Status](https://travis-ci.org/Proteus1989/Air-Explorer-Decrypter.svg?branch=master)](https://travis-ci.com/Proteus1989/Air-Explorer-Decrypter)
 [![Codecov](https://img.shields.io/codecov/c/github/Proteus1989/Air-Explorer-Decrypter)](https://codecov.io/gh/Proteus1989/Air-Explorer-Decrypter)
 [![GitHub](https://img.shields.io/github/license/Proteus1989/Air-Explorer-Decrypter)](https://github.com/Proteus1989/Air-Explorer-Decrypter/blob/master/LICENSE)
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/Proteus1989/Air-Explorer-Decrypter)](https://github.com/Proteus1989/Air-Explorer-Decrypter/releases/latest)
