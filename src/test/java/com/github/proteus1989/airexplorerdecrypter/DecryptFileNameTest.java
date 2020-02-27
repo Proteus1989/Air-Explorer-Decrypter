@@ -1,5 +1,6 @@
-package com.suapp.airexplorerdecrypter;
+package com.github.proteus1989.airexplorerdecrypter;
 
+import com.github.proteus1989.airexplorerdecrypter.AirExplorerDecrypterAPI;
 import java.io.IOException;
 import org.junit.After;
 import org.junit.AfterClass;
