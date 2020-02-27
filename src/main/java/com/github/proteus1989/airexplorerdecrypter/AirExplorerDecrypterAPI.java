@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.suapp.airexplorerdecrypter;
+package com.github.proteus1989.airexplorerdecrypter;
 
 import java.io.File;
 import java.io.FileInputStream;

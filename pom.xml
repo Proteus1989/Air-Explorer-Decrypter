@@ -1,19 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.suapp</groupId>
+    <groupId>com.github.proteus1989</groupId>
     <artifactId>AirExplorerDecrypter</artifactId>
-    <version>1.0</version>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>Air Explorer Decrypter</name>
     <properties>
         <project.revision>0</project.revision>
-        <project.jarName>${project.artifactId}-v${project.version}.${project.revision}</project.jarName>
+        <project.jarName>${project.artifactId}-${project.version}.${project.revision}-SNAPSHOT</project.jarName>
         
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
+    
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+    
     <build>
         <plugins>
             <plugin>
@@ -21,7 +33,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.2.0</version>
                 <configuration>
-                    <finalName>${project.jarName}</finalName>
+                    <!--<finalName>${project.jarName}</finalName>-->
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
@@ -34,7 +46,7 @@
                 <artifactId>maven-source-plugin</artifactId>
                 <version>3.2.1</version>
                 <configuration>
-                    <finalName>${project.jarName}</finalName>
+                    <!--<finalName>${project.jarName}</finalName>-->
                 </configuration>
                 <executions>
                     <execution>
@@ -50,7 +62,7 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.1.1</version>
                 <configuration>
-                    <finalName>${project.jarName}</finalName>
+                    <!--<finalName>${project.jarName}</finalName>-->
                 </configuration>
                 <executions>
                     <execution>
@@ -86,6 +98,60 @@
                     </execution>
                 </executions>
             </plugin>
+            
+            <!--Publishing in maven central repository-->
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.8.2</version>
+                <configuration>
+                    <!--<finalName>${project.jarName}</finalName>-->
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>default-deploy</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>deploy</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            
+            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.3</version>
+                <configuration>
+<!--                    <finalName>${project.jarName}</finalName>-->
+                    <localCheckout>true</localCheckout>
+                    <pushChanges>false</pushChanges>
+                    <mavenExecutorId>forked-path</mavenExecutorId>
+                    <arguments>-Dgpg.passphrase=${gpg.passphrase}</arguments>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.maven.scm</groupId>
+                        <artifactId>maven-scm-provider-gitexe</artifactId>
+                        <version>1.9.5</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            
+            
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.8</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <!--<finalName>${project.jarName}</finalName>-->
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
+            
         </plugins>
         <resources>
             <resource>
@@ -108,4 +174,43 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+    
+    <scm>
+        <connection>scm:git:git://github.com/Proteus1989/Air-Explorer-Decrypter.git</connection>
+        <developerConnection>scm:git:ssh://github.com:Proteus1989/Air-Explorer-Decrypter.git</developerConnection>
+        <url>https://github.com/Proteus1989/Air-Explorer-Decrypter</url>
+        <tag>1.0.0</tag>
+    </scm>
+    
+    <profiles>
+        <!-- GPG Signature on release -->
+        <profile>
+            <id>release-sign-artifacts</id>
+            <activation>
+                <property>
+                    <name>performRelease</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.6</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+    
 </project>

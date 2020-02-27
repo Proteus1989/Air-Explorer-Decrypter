@@ -1,5 +1,6 @@
-package com.suapp.airexplorerdecrypter;
+package com.github.proteus1989.airexplorerdecrypter;
 
+import com.github.proteus1989.airexplorerdecrypter.AirExplorerDecrypterAPI;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
