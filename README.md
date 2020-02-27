@@ -19,12 +19,12 @@ To run a GUI client just execute **AirExplorerFileDecrypter-v1.1.jar** file.
 [Download latest GUI client build](https://github.com/Proteus1989/Air-Explorer-Decrypter/releases/latest)
 ### API Usage
 
-Decrypt file name
+Decrypting file name
 ```java
 AirExplorerDecrypterAPI.decryptName("encryptedFileName(.cloudencoded2)", "file_password")
 ```
 
-Decrypt file
+Decrypting a file
 ```java
 AirExplorerDecrypterAPI.decrytp(new File("file_path"), "file_password")
 ```
@@ -50,5 +50,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Acknowledgments
 
-MS original PasswordDeriveBytes class contains a nonstandard extension of the PBKDF1 algorithm. So MS PasswordDeriveBytes is different of normal BKDF1.
-Special thanks to **gilchris** fo Java PasswordDeriveBytes port. Available at https://github.com/gilchris/PasswordDeriveBytesForJava.
+MS original PasswordDeriveBytes class contains a nonstandard extension of the PBKDF1 algorithm. Therefore, MS PasswordDeriveBytes is different of normal BKDF1.
+Special thanks to **gilchris** for Java PasswordDeriveBytes port. Available at https://github.com/gilchris/PasswordDeriveBytesForJava.
