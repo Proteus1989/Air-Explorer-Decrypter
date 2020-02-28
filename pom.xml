@@ -7,9 +7,6 @@
     <packaging>jar</packaging>
     <name>Air Explorer Decrypter</name>
     <properties>
-        <project.revision>0</project.revision>
-        <project.jarName>${project.artifactId}-${project.version}.${project.revision}-SNAPSHOT</project.jarName>
-        
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -33,7 +30,6 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.2.0</version>
                 <configuration>
-                    <!--<finalName>${project.jarName}</finalName>-->
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
@@ -46,7 +42,6 @@
                 <artifactId>maven-source-plugin</artifactId>
                 <version>3.2.1</version>
                 <configuration>
-                    <!--<finalName>${project.jarName}</finalName>-->
                 </configuration>
                 <executions>
                     <execution>
@@ -62,7 +57,6 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.1.1</version>
                 <configuration>
-                    <!--<finalName>${project.jarName}</finalName>-->
                 </configuration>
                 <executions>
                     <execution>
@@ -104,7 +98,6 @@
                 <artifactId>maven-deploy-plugin</artifactId>
                 <version>2.8.2</version>
                 <configuration>
-                    <!--<finalName>${project.jarName}</finalName>-->
                 </configuration>
                 <executions>
                     <execution>
@@ -123,9 +116,8 @@
                 <artifactId>maven-release-plugin</artifactId>
                 <version>2.5.3</version>
                 <configuration>
-<!--                    <finalName>${project.jarName}</finalName>-->
                     <localCheckout>true</localCheckout>
-                    <pushChanges>false</pushChanges>
+                    <pushChanges>true</pushChanges>
                     <mavenExecutorId>forked-path</mavenExecutorId>
                     <arguments>-Dgpg.passphrase=${gpg.passphrase}</arguments>
                 </configuration>
@@ -145,7 +137,6 @@
                 <version>1.6.8</version>
                 <extensions>true</extensions>
                 <configuration>
-                    <!--<finalName>${project.jarName}</finalName>-->
                     <serverId>ossrh</serverId>
                     <nexusUrl>https://oss.sonatype.org/</nexusUrl>
                     <autoReleaseAfterClose>true</autoReleaseAfterClose>
