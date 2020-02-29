@@ -8,7 +8,6 @@
 # Air Explorer Decrypter
 Java API able to decrypts Air Explorer encrypted files. This project includes simple graphic client binaries.
 
-
 ## Getting Started
 
 ### Prerequisites
@@ -16,8 +15,8 @@ Java API able to decrypts Air Explorer encrypted files. This project includes si
 At least, Oracle JRE 1.8 is needed.
 
 ### GUI Client
-To run a GUI client just execute **AirExplorerFileDecrypter-v1.1.jar** file.
-[Download latest GUI client build](https://github.com/Proteus1989/Air-Explorer-Decrypter/releases/latest)
+To run a GUI client just execute **AirExplorerFileDecrypter-v1.1.jar** file.<br>
+[Download latest GUI client build](https://github.com/Proteus1989/Air-Explorer-Decrypter/releases/download/1.0.0/AirExplorerFileDecrypter-v1.1.jar)
 
 ### API Usage
 #### Importing the library
