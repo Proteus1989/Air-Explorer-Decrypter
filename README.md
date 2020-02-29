@@ -2,6 +2,7 @@
 [![Codecov](https://img.shields.io/codecov/c/github/Proteus1989/Air-Explorer-Decrypter)](https://codecov.io/gh/Proteus1989/Air-Explorer-Decrypter)
 [![GitHub](https://img.shields.io/github/license/Proteus1989/Air-Explorer-Decrypter)](https://github.com/Proteus1989/Air-Explorer-Decrypter/blob/master/LICENSE)
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/Proteus1989/Air-Explorer-Decrypter)](https://github.com/Proteus1989/Air-Explorer-Decrypter/releases/latest)
+[![Maven Central](https://img.shields.io/maven-central/v/com.github.proteus1989/AirExplorerDecrypter.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.github.proteus1989%22%20AND%20a:%22AirExplorerDecrypter%22)
 [![Github All Releases](https://img.shields.io/github/downloads/Proteus1989/Air-Explorer-Decrypter/total)](https://github.com/Proteus1989/Air-Explorer-Decrypter/releases)
 
 # Air Explorer Decrypter
@@ -17,22 +18,33 @@ At least, Oracle JRE 1.8 is needed.
 ### GUI Client
 To run a GUI client just execute **AirExplorerFileDecrypter-v1.1.jar** file.
 [Download latest GUI client build](https://github.com/Proteus1989/Air-Explorer-Decrypter/releases/latest)
-### API Usage
 
-Decrypting file name
+### API Usage
+#### Importing the library
+##### Maven
+```
+<dependency>
+  <groupId>com.github.proteus1989</groupId>
+  <artifactId>AirExplorerDecrypter</artifactId>
+  <version>1.0.1</version>
+</dependency>
+```
+##### Gradle
+```
+implementation 'com.github.proteus1989:AirExplorerDecrypter:1.0.1'
+```
+#### Calling the API
+- Decrypting file name
 ```java
 AirExplorerDecrypterAPI.decryptName("encryptedFileName(.cloudencoded2)", "file_password")
 ```
-
-Decrypting a file
+- Decrypting a file
 ```java
 AirExplorerDecrypterAPI.decrytp(new File("file_path"), "file_password")
 ```
-or 
 ```java
 AirExplorerDecrypterAPI.decrytp(new File("file_path"), new File("dst_folder"), "file_password")
 ```
-or if you want to decrypt the file in stream
 ```java
 AirExplorerDecrypterAPI.decrytp(your_input_stream, your_output_stream, "file_password")
 ```
