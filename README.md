@@ -1,4 +1,3 @@
-[![Build Status](https://travis-ci.org/Proteus1989/Air-Explorer-Decrypter.svg?branch=master)](https://travis-ci.org/Proteus1989/Air-Explorer-Decrypter)
 [![Codecov](https://img.shields.io/codecov/c/github/Proteus1989/Air-Explorer-Decrypter)](https://codecov.io/gh/Proteus1989/Air-Explorer-Decrypter)
 [![license: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/Proteus1989/Air-Explorer-Decrypter/blob/master/LICENSE)
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/Proteus1989/Air-Explorer-Decrypter)](https://github.com/Proteus1989/Air-Explorer-Decrypter/releases/latest)
@@ -7,7 +6,7 @@
 
 # Air Explorer Decrypter
 
-Java API able to decrypt Air Explorer encrypted files. This project includes simple graphic client binaries.
+Java library able to decrypt Air Explorer encrypted files. This project includes simple graphic client binaries.
 
 ## Getting Started
 
@@ -19,7 +18,7 @@ At least, jdk 1.8 is needed.
 To run a GUI client just execute **AirExplorerFileDecrypter-v1.2.jar** file.<br>
 [Download latest GUI client build](https://github.com/Proteus1989/Air-Explorer-Decrypter/releases/download/1.0.0/AirExplorerFileDecrypter-v1.2.jar)
 
-### Utility Usage
+### Library Usage
 
 #### Importing the library
 
