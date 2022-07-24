@@ -19,7 +19,7 @@ At least, jdk 1.8 is needed.
 To run a GUI client just execute **AirExplorerFileDecrypter-v1.2.jar** file.<br>
 [Download latest GUI client build](https://github.com/Proteus1989/Air-Explorer-Decrypter/releases/download/1.0.0/AirExplorerFileDecrypter-v1.2.jar)
 
-### API Usage
+### Utility Usage
 
 #### Importing the library
 
@@ -39,7 +39,7 @@ To run a GUI client just execute **AirExplorerFileDecrypter-v1.2.jar** file.<br>
 implementation 'com.github.proteus1989:AirExplorerDecrypter:2.0.0'
 ```
 
-#### Calling the API
+#### Examples
 
 - Decrypting file name
 
@@ -61,11 +61,11 @@ AirExplorerDecrypter.decrypt(new File("file_path"), new File("dst_folder"), "fil
 AirExplorerDecrypter.decrypt(your_input_stream, your_output_stream, "file_password")
 ```
 
-[Download the latest API build](https://github.com/Proteus1989/Air-Explorer-Decrypter/releases/latest)
+[Download the latest build](https://github.com/Proteus1989/Air-Explorer-Decrypter/releases/latest)
 
 ## Authors
 
-* **Antonio Suárez** - *Initial work* - [Proteus1989](https://github.com/Proteus1989)
+* **Antonio Suárez** - *Initial work and maintainer* - [Proteus1989](https://github.com/Proteus1989)
 
 See also the list of [contributors](https://github.com/Proteus1989/Air-Explorer-Decrypter/contributors) who participated
 in this project.
