@@ -1,4 +1,3 @@
-[![Codecov](https://img.shields.io/codecov/c/github/Proteus1989/Air-Explorer-Decrypter)](https://codecov.io/gh/Proteus1989/Air-Explorer-Decrypter)
 [![license: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/Proteus1989/Air-Explorer-Decrypter/blob/master/LICENSE)
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/Proteus1989/Air-Explorer-Decrypter)](https://github.com/Proteus1989/Air-Explorer-Decrypter/releases/latest)
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.proteus1989/AirExplorerDecrypter.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.github.proteus1989%22%20AND%20a:%22AirExplorerDecrypter%22)
