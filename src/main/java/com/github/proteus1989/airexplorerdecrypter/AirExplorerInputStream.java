@@ -1,5 +1,9 @@
 package com.github.proteus1989.airexplorerdecrypter;
 
+import javax.crypto.Cipher;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.ShortBufferException;
+import javax.crypto.spec.SecretKeySpec;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,17 +15,11 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.crypto.Cipher;
-import javax.crypto.NoSuchPaddingException;
-import javax.crypto.ShortBufferException;
-import javax.crypto.spec.SecretKeySpec;
 
 /**
- *
  * @author Antonio
  */
-public final class AirExplorerInputStream extends InputStream
-{
+public final class AirExplorerInputStream extends InputStream {
 
     InputStream in;
 
@@ -32,29 +30,34 @@ public final class AirExplorerInputStream extends InputStream
     /**
      * Creates a wrapper that read the input stream and decrypt it on the fly.
      *
-     * @param in The encrypted input stream.
+     * @param in       The encrypted input stream.
      * @param password The file password.
-     * @throws IOException Thrown when cipher either input stream fail.
+     * @throws IOException              Thrown when cipher either input stream fail.
      * @throws IllegalArgumentException This exception is thrown when an
-     * incorrect password is given.
+     *                                  incorrect password is given.
      */
-    public AirExplorerInputStream(InputStream in, String password) throws IllegalArgumentException, IOException
-    {
+    public AirExplorerInputStream(InputStream in, String password) throws IllegalArgumentException, IOException {
         this.in = in;
         initCipher(password);
+    }
+
+    private static byte[] reverse(byte[] value) {
+        final int length = value.length;
+        byte[] res = new byte[length];
+        for (int i = 0; i < length; i++)
+            res[length - i - 1] = value[i];
+        return res;
     }
 
     /**
      * Checks file header metadata and creates Cipher
      *
      * @param password File password.
-     * @throws IOException Thrown when either cipher or input stream fails.
-     * @throws IllegalArgumentException This exception is thrown when an
+     * @throws IOException              Thrown when either cipher or input stream fails.
+     * @throws IllegalArgumentException This exception is thrown when an invalid password is provided.
      */
-    private void initCipher(String password) throws IllegalArgumentException, IOException
-    {
-        try
-        {
+    private void initCipher(String password) throws IllegalArgumentException, IOException {
+        try {
             DataInputStream binaryReader = new DataInputStream(in);
 
             // Checking version
@@ -77,13 +80,13 @@ public final class AirExplorerInputStream extends InputStream
             salt = getSalt(secret);
             this.rijndael = createRijndaelCipher(secret);
 
-            // Decripting first 64 bytes block
+            // Decrypting first 64 bytes block
             byte[] firstBlock = new byte[64];
             binaryReader.readFully(firstBlock);
-            byte[] decrytptedContent = decryptBlock(firstBlock);
+            byte[] decryptedContent = decryptBlock(firstBlock);
 
             // Hashing to MD5
-            byte[] hash = MessageDigest.getInstance("MD5").digest(decrytptedContent);
+            byte[] hash = MessageDigest.getInstance("MD5").digest(decryptedContent);
 
             // Getting hash check block
             byte[] hashCheck = new byte[16];
@@ -93,11 +96,8 @@ public final class AirExplorerInputStream extends InputStream
             if (!Arrays.equals(hash, hashCheck))
                 throw new IllegalArgumentException("Wrong password");
 
-        } catch (IOException ex)
-        {
-            throw ex;
-        } catch (ShortBufferException | DigestException | NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException ex)
-        {
+        } catch (ShortBufferException | DigestException | NoSuchAlgorithmException | NoSuchPaddingException |
+                 InvalidKeyException ex) {
             throw new IOException(ex);
         }
     }
@@ -107,28 +107,27 @@ public final class AirExplorerInputStream extends InputStream
      *
      * @param password The file password.
      * @return The secret key.
-     * @throws DigestException
+     * @throws DigestException Exception creating the PasswordDeriveBytes.
      */
-    private byte[] getSecret(String password) throws DigestException
-    {
+    private byte[] getSecret(String password) throws DigestException {
         byte[] rgbSalt = new byte[]
-        {
-            (byte) 38, (byte) 25, (byte) 129, (byte) 78, (byte) 160, (byte) 109, (byte) 149, (byte) 52, (byte) 38, (byte) 117, (byte) 100, (byte) 5, (byte) 246
-        };
+                {
+                        (byte) 38, (byte) 25, (byte) 129, (byte) 78, (byte) 160, (byte) 109, (byte) 149, (byte) 52, (byte) 38, (byte) 117, (byte) 100, (byte) 5, (byte) 246
+                };
         return new PasswordDeriveBytes(password, rgbSalt).GetBytes(32);
     }
 
     /**
      * Given the secret key return the salt.
+     *
      * @param secret The secret key.
      * @return The salt.
      */
-    private byte[] getSalt(byte[] secret)
-    {
+    private byte[] getSalt(byte[] secret) {
         return new byte[]
-        {
-            secret[2], secret[1], secret[4], secret[3], secret[5], secret[6], secret[7], secret[8], (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0
-        };
+                {
+                        secret[2], secret[1], secret[4], secret[3], secret[5], secret[6], secret[7], secret[8], (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0
+                };
     }
 
     /**
@@ -136,37 +135,34 @@ public final class AirExplorerInputStream extends InputStream
      *
      * @param secret The secret key.
      * @return The cipher prepared to decrypt.
-     * @throws NoSuchAlgorithmException
-     * @throws NoSuchPaddingException
-     * @throws InvalidKeyException
+     * @throws NoSuchAlgorithmException Cipher algorithm not found in the JDK.
+     * @throws NoSuchPaddingException   Padding type not found in the JDK.
+     * @throws InvalidKeyException      Invalid SecretKeySpec.
      */
-    private Cipher createRijndaelCipher(byte[] secret) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException
-    {
-        final SecretKeySpec skeySpec = new SecretKeySpec(secret, "Rijndael");
-        Cipher rijndaelManaged = Cipher.getInstance("Rijndael/ECB/NoPadding");
+    private Cipher createRijndaelCipher(byte[] secret) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException {
+        final SecretKeySpec skeySpec = new SecretKeySpec(secret, "AES");
+        Cipher rijndaelManaged = Cipher.getInstance("AES/ECB/NoPadding");
         rijndaelManaged.init(Cipher.ENCRYPT_MODE, skeySpec);
         return rijndaelManaged;
     }
 
     /**
      * Decrypts an array block.
+     *
      * @param encryptedByteArray Encrypted data.
      * @return Decrypted data.
-     * @throws ShortBufferException 
+     * @throws ShortBufferException This exception is thrown when an output buffer provided by the user is too short to hold the operation result.
      */
-    private byte[] decryptBlock(byte[] encryptedByteArray) throws ShortBufferException
-    {
+    private byte[] decryptBlock(byte[] encryptedByteArray) throws ShortBufferException {
         byte[] decryptedByteArray = new byte[encryptedByteArray.length];
 
         int inputCount = rijndael.getBlockSize();
-        byte[] temporal = new byte[salt.length];
-        System.arraycopy(salt, 0, temporal, 0, salt.length);
+        byte[] inputBuffer = new byte[salt.length];
+        System.arraycopy(salt, 0, inputBuffer, 0, salt.length);
 
-        long num = (long) (encryptedByteArray.length / inputCount + (encryptedByteArray.length % inputCount > 0 ? 1 : 0));
-        for (long i = 0; i < num; i++)
-        {
+        long num = encryptedByteArray.length / inputCount + (encryptedByteArray.length % inputCount > 0 ? 1 : 0);
+        for (long i = 0; i < num; i++) {
             byte[] outputBuffer = new byte[inputCount];
-            byte[] inputBuffer = temporal;
             byte[] longBytes = reverse(longToBytes(counter));
             longBytes = reverse(longBytes);
             System.arraycopy(longBytes, 0, inputBuffer, inputCount - 8, inputBuffer.length - (inputCount - 8));
@@ -184,8 +180,7 @@ public final class AirExplorerInputStream extends InputStream
         return decryptedByteArray;
     }
 
-    private byte[] decryptArray(byte[] _param0, int _param1, byte[] _param2)
-    {
+    private byte[] decryptArray(byte[] _param0, int _param1, byte[] _param2) {
         int length = Math.min(_param0.length - _param1, _param2.length);
         byte[] numArray = new byte[length];
         for (int index = 0; index < length; index++)
@@ -193,43 +188,28 @@ public final class AirExplorerInputStream extends InputStream
         return numArray;
     }
 
-    private static byte[] reverse(byte[] value)
-    {
-        final int length = value.length;
-        byte[] res = new byte[length];
-        for (int i = 0; i < length; i++)
-            res[length - i - 1] = value[i];
-        return res;
-    }
-
-    private byte[] longToBytes(long x)
-    {
+    private byte[] longToBytes(long x) {
         ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES);
         buffer.putLong(x);
         return buffer.array();
     }
 
     @Override
-    public int read(byte b[], int off, int len) throws IOException
-    {
+    public int read(byte[] b, int off, int len) throws IOException {
         int totalRead = 0;
         int read;
 
-        int toBeRead = len;
-        do
-        {
-            read = in.read(b, off + totalRead, toBeRead - totalRead);
+        do {
+            read = in.read(b, off + totalRead, len - totalRead);
             totalRead += read != -1 ? read : 0;
-        } while (read > -1 && totalRead < toBeRead);
+        } while (read > -1 && totalRead < len);
 
-        try
-        {
+        try {
             byte[] tmp = new byte[len];
             System.arraycopy(b, off, tmp, 0, len);
             tmp = decryptBlock(tmp);
             System.arraycopy(tmp, 0, b, off, len);
-        } catch (ShortBufferException ex)
-        {
+        } catch (ShortBufferException ex) {
             Logger.getLogger(AirExplorerInputStream.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -238,15 +218,13 @@ public final class AirExplorerInputStream extends InputStream
     }
 
     @Override
-    public void close() throws IOException
-    {
+    public void close() throws IOException {
         super.close();
         in.close();
     }
 
     @Override
-    public int read() throws IOException
-    {
+    public int read() throws IOException {
         return in.read();
     }
 

@@ -1,6 +1,7 @@
 package com.github.proteus1989.airexplorerdecrypter;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.DigestException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -42,12 +43,7 @@ public class PasswordDeriveBytes {
        if (strPassword == null)
            throw new NullPointerException("strPassword");
 
-       byte[] pwd = null;
-       try {
-           pwd = strPassword.getBytes("ASCII");
-       } catch (UnsupportedEncodingException e) {
-           e.printStackTrace();
-       }
+       byte[] pwd = strPassword.getBytes(StandardCharsets.US_ASCII);
        Prepare(pwd, rgbSalt, strHashName, iterations);
    }
 
@@ -75,10 +71,7 @@ public class PasswordDeriveBytes {
        if (state != 0) {
            throw new SecurityException("Can't change this property at this stage");
        }
-       if (salt != null)
-           SaltValue = salt;
-       else
-           SaltValue = null;
+       SaltValue = salt;
    }
 
    public String getHashName() {
@@ -140,16 +133,14 @@ public class PasswordDeriveBytes {
        }
 
        while (cpos < cb) {
-           byte[] output2 = null;
+           byte[] output2;
            if (hashnumber == 0) {
                // last iteration on output
                output2 = hash.digest(output);
            } else if (hashnumber < 1000) {
                byte[] n = Integer.toString(hashnumber).getBytes();
                output2 = new byte[output.length + n.length];
-               for (int j = 0; j < n.length; j++) {
-                   output2[j] = n[j];
-               }
+               System.arraycopy(n, 0, output2, 0, n.length);
                System.arraycopy(output, 0, output2, n.length, output.length);
                // don't update output
                output2 = hash.digest(output2);
