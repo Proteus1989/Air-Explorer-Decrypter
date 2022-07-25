@@ -14,6 +14,7 @@ Java library able to decrypt Air Explorer encrypted files. This project includes
 At least, jdk 1.8 is needed.
 
 ### GUI Client
+
 To run a GUI client just execute **AirExplorerFileDecrypter-v1.2.jar** file.<br>
 [Download latest GUI client build](https://github.com/Proteus1989/Air-Explorer-Decrypter/releases/download/1.0.0/AirExplorerFileDecrypter-v1.2.jar)
 
@@ -51,12 +52,21 @@ AirExplorerDecrypter.decryptName("encryptedFileName(.cloudencoded2)", "file_pass
 AirExplorerDecrypter.decrypt(new File("file_path"), "file_password")
 ```
 
+- Decrypting a file into a specific directory
+
 ```
 AirExplorerDecrypter.decrypt(new File("file_path"), new File("dst_folder"), "file_password")
 ```
 
+- Consuming an encrypted input stream, decrypt it and send it to a custom output stream
+
 ```
 AirExplorerDecrypter.decrypt(your_input_stream, your_output_stream, "file_password")
+```
+
+- Creating an AirExplorerInputStream to wrapper and consume an encrypted stream
+```
+InputStream AirExplorerInputStream = new AirExplorerInputStream(your_input_stream, "file_password")
 ```
 
 [Download the latest build](https://github.com/Proteus1989/Air-Explorer-Decrypter/releases/latest)
