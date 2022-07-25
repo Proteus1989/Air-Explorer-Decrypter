@@ -25,8 +25,6 @@ import java.util.logging.Logger;
 
 /**
  * Utility class to decrypt Air Explorer files
- *
- * @author Antonio
  */
 public class AirExplorerDecrypter {
 

@@ -7,9 +7,6 @@ import java.io.IOException;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-/**
- * @author Antonio
- */
 public class DecryptFileNameTest {
     @Test
     public void decryptFileNameTest() throws IOException {

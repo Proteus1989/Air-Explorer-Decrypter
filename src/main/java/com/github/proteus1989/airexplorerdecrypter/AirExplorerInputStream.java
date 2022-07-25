@@ -17,7 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * @author Antonio
+ * Input stream implementation able to decrypt Air Explorer encrypted files
  */
 public final class AirExplorerInputStream extends InputStream {
 
