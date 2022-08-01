@@ -114,7 +114,7 @@ public final class AirExplorerInputStream extends InputStream {
                 {
                         (byte) 38, (byte) 25, (byte) 129, (byte) 78, (byte) 160, (byte) 109, (byte) 149, (byte) 52, (byte) 38, (byte) 117, (byte) 100, (byte) 5, (byte) 246
                 };
-        return new PasswordDeriveBytes(password, rgbSalt).GetBytes(32);
+        return new PasswordDeriveBytes(password, rgbSalt).getBytes(32);
     }
 
     /**

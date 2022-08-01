@@ -40,7 +40,7 @@ public class AirExplorerDecrypter {
     public static String decryptName(String name, String password) throws IOException {
         try {
             byte[] buffer = Base64.getDecoder().decode(name.replace("_", "+").replace("-", "/").replace(".cloudencoded2", ""));
-            byte[] bytes = new PasswordDeriveBytes(password, null).GetBytes(32);
+            byte[] bytes = new PasswordDeriveBytes(password, null).getBytes(32);
 
             final SecretKeySpec skeySpec = new SecretKeySpec(bytes, "AES");
             Cipher rijndaelManaged = Cipher.getInstance("AES/CBC/NoPadding");
