@@ -5,13 +5,13 @@
 
 # Air Explorer Decrypter
 
-Java library able to decrypt Air Explorer encrypted files. This project includes simple graphic client binaries.
+Java library able to decrypt Air Explorer encrypted files. This README includes simple graphic client binaries.
 
 ## Getting Started
 
 ### Prerequisites
 
-At least, jdk 1.8 is needed.
+At least, JDK 1.8 is needed.
 
 ### GUI Client
 
