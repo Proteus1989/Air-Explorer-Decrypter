@@ -15,8 +15,8 @@ At least, JDK 1.8 is needed.
 
 ### GUI Client
 
-To run a GUI client just execute **AirExplorerFileDecrypter-v1.2.jar** file.<br>
-[Download latest GUI client build](https://github.com/Proteus1989/Air-Explorer-Decrypter/releases/download/1.0.0/AirExplorerFileDecrypter-v1.2.jar)
+A simple GUI client can be found in **Air-Explorer-Decrypter-Simple-Client** repository.<br>
+[Download latest GUI client build](https://github.com/Proteus1989/Air-Explorer-Decrypter-Simple-Client)
 
 ### Library Usage
 
